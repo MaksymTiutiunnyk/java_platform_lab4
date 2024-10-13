@@ -1,8 +1,21 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * The {@code VowelSorter} class provides functionality to sort the words in each sentence of a text
+ * based on the number of vowels in each word.
+ */
 public class VowelSorter {
+    /**
+     * Sorts the words in each sentence of a given {@code Text} object by the number of vowels in each word.
+     * Non-word elements such as punctuation remain in their original positions.
+     *
+     * @param text   the {@code Text} object containing sentences to be sorted
+     * @param vowels an array of characters representing vowels to be used for counting
+     * @return a new {@code Text} object with words sorted by the number of vowels
+     */
     public static Text sortWordsByVowels(Text text, char[] vowels) {
         Text sortedText = new Text(text.getSentences().length);
 
@@ -19,8 +32,7 @@ public class VowelSorter {
 
             Word[] actualWords = new Word[wordCount];
             System.arraycopy(words, 0, actualWords, 0, wordCount);
-            Comparator<Word> vowelComparator = Comparator.comparingInt(word -> word.countVowels(vowels));
-            sort(actualWords, vowelComparator);
+            Arrays.sort(actualWords, Comparator.comparingInt(word -> word.countVowels(vowels)));
 
             int wordIndex = 0;
             for (int i = 0; i < elements.length; i++) {
@@ -41,17 +53,5 @@ public class VowelSorter {
         }
 
         return sortedText;
-    }
-
-    private static <T> void sort(T[] array, Comparator<? super T> comparator) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (comparator.compare(array[i], array[j]) > 0) {
-                    T temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
-            }
-        }
     }
 }
