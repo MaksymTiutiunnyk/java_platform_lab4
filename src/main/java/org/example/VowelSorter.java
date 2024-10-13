@@ -43,7 +43,6 @@ public class VowelSorter {
         return sortedText;
     }
 
-    // Метод для сортування масиву
     private static <T> void sort(T[] array, Comparator<? super T> comparator) {
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
