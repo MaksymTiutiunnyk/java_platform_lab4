@@ -6,7 +6,7 @@ package org.example;
  * and prints the original and sorted text.
  */
 public class Main {
-    private static final String TEXT = "This line, is a first sentence. This one - is a second one. Wow! Which word has the most vowels in each sentence?";
+    private static final String TEXT = "This line, is a first sentence. This one - is a second one. Wow, this sentence\tcontains tabulation   and extra whitespaces! Which word has the most vowels in each sentence?";
     private static final char[] VOWELS = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
 
     /**
@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         Text text = new Text(TEXT);
 
-        System.out.println("Initial text: " + text);
+        System.out.println("Initial cleared text: " + text);
 
         Text sortedText = VowelSorter.sortWordsByVowels(text, VOWELS);
 

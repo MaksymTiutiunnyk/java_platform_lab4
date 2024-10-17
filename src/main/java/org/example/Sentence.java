@@ -25,21 +25,33 @@ public class Sentence {
     public Sentence(String sentence) {
         elements = new SentenceElement[sentence.length()];
         StringBuilder currentWord = new StringBuilder();
+        boolean lastWasWhitespace = false;
+
         for (char c : sentence.toCharArray()) {
-            if (Character.isLetter(c))
+            if (Character.isLetter(c)) {
                 currentWord.append(c);
-            else if ((Character.isWhitespace(c) && !currentWord.isEmpty())) {
-                addWord(new Word(currentWord.toString()));
-                currentWord = new StringBuilder();
-                addElement(new Punctuation(' '));
+                lastWasWhitespace = false;
+            } else if (Character.isWhitespace(c)) {
+                if (!currentWord.isEmpty()) {
+                    addWord(new Word(currentWord.toString()));
+                    currentWord = new StringBuilder();
+                }
+                if (!lastWasWhitespace) {
+                    addElement(new Punctuation(' '));
+                    lastWasWhitespace = true;
+                }
             } else {
                 if (!currentWord.isEmpty()) {
                     addWord(new Word(currentWord.toString()));
                     currentWord = new StringBuilder();
                 }
                 addElement(new Punctuation(c));
+                lastWasWhitespace = false;
             }
         }
+
+        if (!currentWord.isEmpty())
+            addWord(new Word(currentWord.toString()));
     }
 
     /**
